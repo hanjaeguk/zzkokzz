@@ -10,8 +10,7 @@
 		<result property="userpass" column="pass"/>
 		<result property="joinDate" column="joindate"/>
 		<result property="adminCode" column="admincode"/>
-		<result property="loginid" column="id"/>
-		<result property="loginpass" column="pass"/>
+
 	</resultMap> 
 	
 	<insert id="memberInsert" parameterType="com.kokkok.member.dto.MemberDto">
@@ -19,9 +18,10 @@
 			values(#{userid}, #{username}, #{useremail}, #{userpass}, sysdate, 0)                                       
     </insert>
     
-    <select id="login" parameterType="java.util.Map">
-    	select id, name, email,joindate,admincode from member
-		where id = #{loginid} and pass = #{loginpass}
+    <select id="login" parameterType="String" resultType="java.util.HashMap">
+    	select * from member
+		where id = #{userid} and pass = #{userpass}
     </select>
+    
 
 </mapper>

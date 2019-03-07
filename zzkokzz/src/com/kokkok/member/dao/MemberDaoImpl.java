@@ -13,7 +13,7 @@ import com.kokkok.member.dto.MemberDto;
 @Component
 public class MemberDaoImpl implements MemberDao {
 	@Autowired
- 	private SqlSessionTemplate sqlSessionTemplate;
+	private SqlSessionTemplate sqlSessionTemplate;
 
 	@Override
 	public int idCheck(String id) {
@@ -27,33 +27,13 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public MemberDto getMember(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public MemberDto login(MemberDto memberDto) {
+		
+		return sqlSessionTemplate.selectOne("login",memberDto);
 	}
 
-	@Override
-	public int modify(MemberDto memberDto) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
-	@Override
-	public int delete(String id) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
-	@Override
-	public int login(String id, String pass) {
 
-		return 0;
-	}
-
-	@Override
-	public List<MemberDto> memberList(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

@@ -1,15 +1,21 @@
 package com.kokkok.member.service;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kokkok.comm.logcheck.CommAspect;
 import com.kokkok.member.dao.MemberDao;
 import com.kokkok.member.dto.MemberDto;
 
@@ -75,11 +81,18 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void login(ModelAndView mav) {
-
-
-
+	public MemberDto login(MemberDto memberDto) {
+		
+		return memberDao.login(memberDto);
 	}
+
+
+
+
+
+
+
+
 
 
 
