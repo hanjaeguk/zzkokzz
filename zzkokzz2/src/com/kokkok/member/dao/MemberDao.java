@@ -9,14 +9,14 @@ public interface MemberDao {
 	public int idCheck(String id);
 	
 	public int memberInsert(MemberDto memberDto);
-	public int login(String id, String pass);
+	public MemberDto login(Map<String, String> hmap); 
+	
 	
 	MemberDto getMember(String id);
 	int modify(MemberDto memberDto); 
 	int delete(String id); 
 	
 	
-	// MemberDto login(String id,String pass); 
 	
 	List<MemberDto> memberList(Map<String,String> map);
 }

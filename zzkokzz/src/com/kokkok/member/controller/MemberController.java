@@ -18,7 +18,7 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
-
+	
 	@RequestMapping(value = "/member/mvRegister.kok", method = RequestMethod.GET)
 	public ModelAndView mvRegister(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();

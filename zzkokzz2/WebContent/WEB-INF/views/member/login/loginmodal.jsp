@@ -63,7 +63,8 @@
 			<div>
 				<form class="login100-form validate-form" id="loginform"
 					method="post" action="">
-					<input type="hidden" name="act" value="login">
+					<input type="hidden" name="act" value="login"/>
+					
 					<div class="loginModalHead" align="center">
 						<br>
 						<h2>

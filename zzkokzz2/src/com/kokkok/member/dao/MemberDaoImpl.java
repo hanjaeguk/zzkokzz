@@ -44,16 +44,17 @@ public class MemberDaoImpl implements MemberDao {
 		return 0;
 	}
 
-	@Override
-	public int login(String id, String pass) {
-
-		return 0;
-	}
 
 	@Override
 	public List<MemberDto> memberList(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public MemberDto login(Map<String,String> map) {
+		
+		return sqlSessionTemplate.selectOne("login", map);
 	}
 
 }

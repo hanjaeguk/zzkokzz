@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kokkok.member.dto.MemberDto;
 import com.kokkok.member.service.MemberService;
 
-
 @Controller
 public class MemberController {
 
@@ -39,7 +38,7 @@ public class MemberController {
 	public ModelAndView idCheck(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request",request);
-		memberService.idCheck(mav);
+		memberService.mvidCheck(mav);
 		return mav;
 	}
 	
@@ -74,6 +73,18 @@ public class MemberController {
 		memberService.myWishreview(mav);
 		return mav;
 	}
-
+	
+	@RequestMapping(value="/member/login.kok",method=RequestMethod.POST)
+	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		String id = request.getParameter("loginid");
+		String pass = request.getParameter("loginpass");
+		mav.addObject("request",request);
+		mav.addObject("id",id);
+		mav.addObject("pass",pass);
+		memberService.login(mav);
+		return mav;
+	}
+	
 
 }
