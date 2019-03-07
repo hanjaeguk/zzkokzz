@@ -7,9 +7,5 @@ public interface MemberDao {
 
 	public int memberInsert(MemberDto memberDto);
 
-	public MemberDto login(MemberDto memberDto);
-
-	public int idCheck(String id);
-
 
 }

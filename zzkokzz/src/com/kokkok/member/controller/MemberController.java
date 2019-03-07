@@ -75,21 +75,7 @@ public class MemberController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/member/login.kok", method = RequestMethod.POST)
-	public String login(MemberDto memberDto, HttpServletRequest request) throws Exception {
-	 
-	 HttpSession session = request.getSession();
-	 
-	 MemberDto login = memberService.login(memberDto);
-	 
-	 if(login == null) {
-	  session.setAttribute("member", null);  
-	 } else {
-	  session.setAttribute("member", login);
-	 }
-	   
-	 return "redirect:/member/mywishreview.kok";
-	}
+
 
 
 

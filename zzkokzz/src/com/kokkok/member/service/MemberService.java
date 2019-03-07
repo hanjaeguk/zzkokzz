@@ -14,7 +14,6 @@ public interface MemberService {
 	public void myWishSchedule(ModelAndView mav);
 	public void myWishreview(ModelAndView mav);
 	
-    public MemberDto login(MemberDto memberDto);
 
 
 

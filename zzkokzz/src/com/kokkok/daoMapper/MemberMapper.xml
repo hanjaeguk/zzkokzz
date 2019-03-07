@@ -18,10 +18,7 @@
 			values(#{userid}, #{username}, #{useremail}, #{userpass}, sysdate, 0)                                       
     </insert>
     
-    <select id="login" parameterType="String" resultType="java.util.HashMap">
-    	select * from member
-		where id = #{userid} and pass = #{userpass}
-    </select>
+
     
 
 </mapper>
