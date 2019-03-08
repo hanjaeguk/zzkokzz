@@ -1,0 +1,53 @@
+membermvc
+  - src
+    com.test.action
+      Action.java (I)
+      
+    com.test.factory
+      MemberActionFactory.java
+      
+    com.test.member.action
+      IdCheckAction.java
+      ZipSearchAction.java
+      RegisterAction.java
+      LoginAction.java
+      LogoutAction.java
+      
+    com.test.member.controller
+      MemberController.java (Servlet : /user)
+    
+    com.test.member.model
+      MemberDto.java
+      MemberDetailDto.java
+      ZipDto.java
+    
+    com.test.member.model.service
+      MemberService.java (I)
+      MemberServiceImpl.java
+    
+    com.test.member.model.dao
+      MemberDao.java (I)
+      MemberDaoImpl.java
+    
+    com.test.util
+      Encoder.java
+      PageMove.java
+    
+    com.test.util.db
+      DBConnection.java
+      DBClose.java
+    
+  - webContent
+    doc - 참고용 문서
+    css - *.css
+    js - *.js
+    img - images
+    join
+      - zipsearch.jsp : 우편번호검색
+      - member.jsp : 회원가입
+      - member_ok.jsp : 회원가입 성공
+    login
+      - login.jsp : 로그인
+      - login_ok.jsp : 로그인 성공
+      - login_fail.jsp : 로그인 실패
+    index.jsp : 메인페이지

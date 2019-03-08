@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.member.model.dao.MemberDao">
+    
+    <select id="idCheck" parameterType="String" resultType="int">
+        select count(id)
+        from member
+        where id = #{id}
+    </select>
+    
+    <select id="zipSearch" parameterType="String" resultType="zipDto">
+        select 	substr(zipcode, 1, instr(zipcode, '-') - 1) zip1,
+        		substr(zipcode, instr(zipcode, '-') + 1) zip2,
+        		sido, gugun, dong, bunji
+        from zipcode
+        where dong like #{dong}||'%'
+    </select>
+    
+    <insert id="register" parameterType="memberDetailDto">
+        insert all
+        	into member (id, name, pass, email1, email2, joindate)
+        	values (#{id}, #{name}, #{pass}, #{email1}, #{email2}, sysdate)
+        	into member_detail (id, tel1, tel2, tel3, zip1, zip2, address, address_detail)
+        	values (#{id}, #{tel1}, #{tel2}, #{tel3}, #{zip1}, #{zip2}, #{address}, #{address_detail})
+        select * from dual
+    </insert>
+    
+    <select id="login" parameterType="map" resultType="memberDto">
+        select *
+        from member
+        where id = #{id} and pass = #{pass}
+    </select>
+    
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
