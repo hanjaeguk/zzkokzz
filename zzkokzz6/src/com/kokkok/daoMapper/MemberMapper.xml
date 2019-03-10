@@ -19,10 +19,9 @@
     
     
     <select id="login" parameterType="java.util.Map" resultType="com.kokkok.dto.MemberDto">
-    	select userid, username, useremail, joindate, admincode from member
-		where userid = #{loginid} and userpass = #{loginid}
+    	select * from member
+		where userid = #{loginid} and userpass = #{loginpass}
     </select>
-    
 
 
 </mapper>

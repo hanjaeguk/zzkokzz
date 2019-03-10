@@ -1,5 +1,7 @@
 package com.kokkok.member.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
@@ -13,6 +15,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
@@ -28,7 +31,6 @@ public class MemberController {
 	private MemberService memberService;
 	
 	
-	// 단순페이지이동
 	@RequestMapping(value="/member/register.kok",method=RequestMethod.GET)
 	public String register() {
 		return "member/join/register";
@@ -71,6 +73,31 @@ public class MemberController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/member/modify.kok",method=RequestMethod.GET)
+	public String modify() {
+		return "member/myMenu/myInfo/modify";
+	}
+	
+	@RequestMapping(value="/member/modify.kok",method=RequestMethod.POST)
+	public ModelAndView modify(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+
+		return mav;
+	}
+	
+	@RequestMapping(value="/member/delete.kok",method=RequestMethod.GET)
+	public String delete() {
+		return "member/myMenu/myInfo/delete";
+	}
+	
+	@RequestMapping(value="/member/delete.kok",method=RequestMethod.POST)
+	public ModelAndView delete(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+
+		return mav;
+	}
+	
+	
 	@RequestMapping(value="/member/mylist.kok",method=RequestMethod.GET)
 	public ModelAndView mylist(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -96,26 +123,28 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/login.kok",method=RequestMethod.POST)
-	public ModelAndView login(@RequestParam Map<String, String> map,HttpSession session, HttpServletRequest request) {
+	public ModelAndView login(@RequestParam Map<String, String> map,HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		ModelAndView mav = new ModelAndView();
 		String path = request.getHeader("referer");
 		LogCheck.logger.info(LogCheck.logMsg + path);
-
 		MemberDto memberDto = memberService.login(map);
-		
 		if(memberDto != null) {
 			LogCheck.logger.info(LogCheck.logMsg + memberDto.toString());
 			mav.addObject("memberDto", memberDto);
 			session.setAttribute("userInfo", memberDto);
-			path = path.substring(path.lastIndexOf("zzkokzz6") + 9, path.length()-4);
-			if("index".equals(path)) {
+			path = path.substring(path.lastIndexOf("zzkokzz6") + 9, path.length());
+			
+			if("index.jsp".equals(path) || "member/register.kok".equals(path)) {
 				mav.setViewName("redirect:index.jsp");
 				return mav;
 			}
-		} 
-		LogCheck.logger.info(LogCheck.logMsg + path);
-		mav.setViewName(path);				
+		} else {
+			mav.setViewName("member/login/loginfail");
+			return mav;
+		}
 		
+		LogCheck.logger.info(LogCheck.logMsg + path);
+		mav.setViewName("redirect:"+path);
 		return mav;
 	}
 	

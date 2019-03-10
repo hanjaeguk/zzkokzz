@@ -29,7 +29,16 @@
 	<div class="container">
 	<div class="row">
 <!-- 왼쪽 검색창 -->	
-<%@ include file="/WEB-INF/views/member/myMenu/sidebar.jsp"%>
+<div class="col-lg-3 sidebar">
+	<div class="sidebar-wrap bg-light ftco-animate">
+		<div class="categories">
+			<li><a href="${root}/member/myInfo.kok" class="dropdown-item" style="color:red;">내 정보관리</a></li>
+			<li><a href="${root}/member/mylist.kok" class="dropdown-item">내가 작성한 일정</a></li>
+			<li><a href="${root}/member/mywishschedule.kok" class="dropdown-item">내가 찜한 일정</a></li>
+			<li><a href="${root}/member/mywishreview.kok" class="dropdown-item">내가 찜한 리뷰</a></li>
+		</div>
+	</div>
+</div>
 <!-- 왼쪽 검색창 END -->
 
 <!-- 오른쪽 목록 -->
@@ -66,8 +75,8 @@
 			<hr>	  	
 			</div>
 			<div class="d-flex justify-content-center mb-3">
-			    <div class="p-2"><input type="button" value="수정하기" class="btn btn-primary py-3 px-4" onclick="location.href='${root}/member?act=mvmodify'"></div>			    
-			    <div class="p-2"><input type="button" value="계정삭제" class="btn btn-primary py-3 px-4" onclick="location.href='${root}/member?act=mvdelete'"></div>			    
+			    <div class="p-2"><input type="button" value="수정하기" class="btn btn-primary py-3 px-4" onclick="location.href='${root}/member/modify.kok'"></div>			    
+			    <div class="p-2"><input type="button" value="계정삭제" class="btn btn-primary py-3 px-4" onclick="location.href='${root}/member/delete.kok'"></div>			    
 			</div>
 
 <!-- 오른쪽 목록  END-->

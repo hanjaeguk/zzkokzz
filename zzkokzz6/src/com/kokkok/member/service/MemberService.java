@@ -12,6 +12,7 @@ public interface MemberService {
 	MemberDto login(Map<String, String> map);
 
 
+
 	public void myInfo(ModelAndView mav);
 	public void myWriteSchedule(ModelAndView mav);
 	public void myWishSchedule(ModelAndView mav);

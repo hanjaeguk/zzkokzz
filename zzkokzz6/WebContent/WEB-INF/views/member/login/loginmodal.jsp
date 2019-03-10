@@ -23,11 +23,15 @@
 	width: 350px;
 }
 </style>
+
+
+
 <link rel="stylesheet" href="${root}/resources/css/login.css">
 <link rel="stylesheet"
 	href="${root}/resources/fonts/iconic/css/material-design-iconic-font.min.css">
 
 <script type="text/javascript">
+
 	function login() {
 		var iderrorview = document.getElementById("idblank");
 		var passerrorview = document.getElementById("passblank");
