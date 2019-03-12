@@ -147,7 +147,7 @@
 										<span class="focus-input100" data-symbol="&#xf203;"></span>
 									</div>
 								</div>
-								<div id="nameblank" style="display: none;" align="center"></div>
+								<div id="nameblank" style="display: none;" align="left"></div>
 								<br>
 
 								<div class="row">
@@ -159,7 +159,7 @@
 											data-symbol="&#xf190;"></span>
 									</div>
 								</div>
-								<div id="pwblank" style="display: none;"></div>
+								<div id="pwblank" style="display: none;" align="left"></div>
 								
 								<br>
 								<div class="row">
@@ -181,7 +181,7 @@
 											data-symbol="&#xf15a;"></span>
 									</div>
 								</div>
-								<div id="emailblank" style="display: none;"></div>
+								<div id="emailblank" style="display: none;" align="left"></div>
 								<br> <br>
 								<div class="d-flex justify-content-center mb-3">
 									<div class="col-lg-5">

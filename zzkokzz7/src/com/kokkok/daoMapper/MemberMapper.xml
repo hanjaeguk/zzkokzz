@@ -14,7 +14,7 @@
     <select id="idCheck" parameterType="String" resultType="int">
         <![CDATA[select count(*)
         from member
-        where userid = #{userid}]]>
+        where userid = #{checkid}]]>
     </select>
     
     

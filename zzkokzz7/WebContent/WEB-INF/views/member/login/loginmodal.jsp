@@ -33,7 +33,7 @@
 <script type="text/javascript">
 	
 	function openfindpass() {
-		window.open("${root}/member/findpass.kok","idcheck","top=200, left=100, width=480, height=380, menubar=no, status=no, toolbar=no, location=no, scrollbars=no");
+		window.open("${root}/member/findpass.kok","idcheck","top=200, left=100, width=480, height=400, menubar=no, status=no, toolbar=no, location=no, scrollbars=no");
 	}
 
 	function login() {

@@ -141,15 +141,15 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		String path = request.getHeader("referer");
 		String projectName = request.getContextPath(); 
-		LogCheck.logger.info(LogCheck.logMsg +"이전 페이지 경로:"+ path);
-		LogCheck.logger.info(LogCheck.logMsg +"프로젝트 이름:"+ projectName);
-		LogCheck.logger.info(LogCheck.logMsg +"프로젝트 이름 길이:"+projectName.length());
+		LogCheck.logger.info(LogCheck.logMsg +"�씠�쟾 �럹�씠吏� 寃쎈줈:"+ path);
+		LogCheck.logger.info(LogCheck.logMsg +"�봽濡쒖젥�듃 �씠由�:"+ projectName);
+		LogCheck.logger.info(LogCheck.logMsg +"�봽濡쒖젥�듃 �씠由� 湲몄씠:"+projectName.length());
 		MemberDto memberDto = memberService.login(map);
 		if(memberDto != null) {
 			LogCheck.logger.info(LogCheck.logMsg + memberDto.toString());
 			session.setAttribute("userInfo", memberDto);
 			path = path.substring(path.lastIndexOf(projectName) + projectName.length()+1, path.length());
-			LogCheck.logger.info(LogCheck.logMsg +"이동할 페이지:"+ path);
+			LogCheck.logger.info(LogCheck.logMsg +"�씠�룞�븷 �럹�씠吏�:"+ path);
 			
 			if("index.jsp".equals(path) || "member/register.kok".equals(path) || "member/registerok.kok".equals(path)) {
 				mav.setViewName("redirect:index.jsp");
@@ -179,44 +179,45 @@ public class MemberController {
 	public String findpass() {
 		return "member/login/findpassword";
 	}
-	
+
 	@RequestMapping(value="/member/findpass.kok",method=RequestMethod.POST)
 	public ModelAndView findpass(@RequestParam Map<String, String> map) {
 		ModelAndView mav = new ModelAndView();
 		MemberDto memberDto = memberService.findPw(map);
-		if(memberDto == null) {
-			mav.setViewName("member/login/sendmailfail");
-		}   else {
+		if(memberDto != null) {
 			String pw = "";
-			for (int i = 0; i < 12; i++) {
+			for (int i = 0; i < 8; i++) {
 				pw += (char) ((Math.random() * 26) + 97);
 			}
 			memberDto.setUserpass(pw);
 			memberService.updatePw(memberDto);
 		    try {
 		    	String htmlContent = "";
-		    	htmlContent += "한재국님 반갑습니다.<br>";
-		    	htmlContent += "임시비밀번호가 발급되었습니다.<br>";
-		    	htmlContent += "고객님의 임시 비밀번호는 입니다.<br>";
-		    	htmlContent += "<font style=\"font-size: 20px; \">임시비밀번호:</font>";
+		    	htmlContent += "�븳�옱援��떂 諛섍컩�뒿�땲�떎.<br>";
+		    	htmlContent += "�엫�떆鍮꾨�踰덊샇媛� 諛쒓툒�릺�뿀�뒿�땲�떎.<br>";
+		    	htmlContent += "怨좉컼�떂�쓽 �엫�떆 鍮꾨�踰덊샇�뒗 �엯�땲�떎.<br>";
+		    	htmlContent += "<font style=\"font-size: 20px; \">�엫�떆鍮꾨�踰덊샇:</font>";
 		    	htmlContent += "<font color=\"red\" style=\"font-size: 25px; font-weight: bold;\">"+memberDto.getUserpass().toString()+"</font><br>";
-		    	htmlContent += "로그인후 비밀번호를 변경해주세요.<br>";
-		    	htmlContent += "감사합니다.";
+		    	htmlContent += "濡쒓렇�씤�썑 鍮꾨�踰덊샇瑜� 蹂�寃쏀빐二쇱꽭�슂.<br>";
+		    	htmlContent += "媛먯궗�빀�땲�떎.";
 			      MimeMessage message = mailSender.createMimeMessage();
 
-			      message.setFrom(new InternetAddress("gkswornr12@gmail.com","Kokkok"));  // 보내는사람 생략하거나 하면 정상작동을 안함
-			      message.addRecipient(RecipientType.TO, new InternetAddress(memberDto.getUseremail())); // 받는사람 이메일
-			      message.setSubject("방방콕콕 임시비밀번호입니다."); // 메일제목은 생략이 가능하다
-			      message.setText(htmlContent, "UTF-8", "html");  // 메일 내용
+			      message.setFrom(new InternetAddress("gkswornr12@gmail.com","Kokkok"));  // 蹂대궡�뒗�궗�엺 �깮�왂�븯嫄곕굹 �븯硫� �젙�긽�옉�룞�쓣 �븞�븿
+			      message.addRecipient(RecipientType.TO, new InternetAddress(memberDto.getUseremail())); // 諛쏅뒗�궗�엺 �씠硫붿씪
+			      message.setSubject("諛⑸갑肄뺤퐬 �엫�떆鍮꾨�踰덊샇�엯�땲�떎."); // 硫붿씪�젣紐⑹� �깮�왂�씠 媛��뒫�븯�떎
+			      message.setText(htmlContent, "UTF-8", "html");  // 硫붿씪 �궡�슜
 			     
 			      mailSender.send(message);
+				  mav.addObject("memberDto",memberDto);
 			      mav.setViewName("member/login/sendmailok");
 			    } catch(Exception e){
 			      System.out.println(e);
 			    }
+		}   else {
+			mav.setViewName("member/login/sendmailfail");
 		}
-					
 		return mav;
+
 	}
 
 }
