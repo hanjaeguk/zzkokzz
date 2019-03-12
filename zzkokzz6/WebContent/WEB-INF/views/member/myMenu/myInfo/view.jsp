@@ -84,7 +84,7 @@ document.location.href = "${root}/index.jsp";
 			    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		    
 			    <div class="p-2"><input type="button" value="계정삭제" class="btn btn-primary py-3 px-4" onclick="location.href='${root}/member/delete.kok'"></div>			    
 			</div>
-
+<input type="button" value="test" class="btn btn-primary" onclick="location.href='${root}/member/modify.kok'">
 <!-- 오른쪽 목록  END-->
 	</div>
 	</div> <!-- 큰 row END -->

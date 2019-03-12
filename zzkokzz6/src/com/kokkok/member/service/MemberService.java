@@ -10,7 +10,8 @@ public interface MemberService {
 	int register(MemberDto memberDto);
 	int idCheck(String id);
 	MemberDto login(Map<String, String> map);
-
+	MemberDto findPw(Map<String, String> map);
+	int updatePw(MemberDto memberDto);
 
 
 	public void myInfo(ModelAndView mav);

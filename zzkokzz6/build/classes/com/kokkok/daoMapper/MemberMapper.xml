@@ -22,6 +22,10 @@
     	select * from member
 		where userid = #{loginid} and userpass = #{loginpass}
     </select>
+    
+    <update id="updatePw" parameterType="com.kokkok.dto.MemberDto">
+		update member set userpass = #{userpass} where userid = #{userid}
+	</update>
 
 
 </mapper>

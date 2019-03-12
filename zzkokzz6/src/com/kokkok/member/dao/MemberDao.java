@@ -11,7 +11,9 @@ public interface MemberDao {
 	int register(MemberDto memberDto);
 	MemberDto login(Map<String, String> map);
 	int idCheck(String id);
-	
+	MemberDto findpw(Map<String, String> map);
+	int updatePw(MemberDto memberDto);
+
 
 
 	

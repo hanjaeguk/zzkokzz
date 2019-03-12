@@ -1,7 +1,10 @@
 package com.kokkok.member.service;
 
+import java.io.File;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -67,7 +70,16 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.idCheck(id);
 	}
 
+	@Override
+	public MemberDto findPw(Map<String, String> map) {
+		MemberDao memberDao = sqlSessionTemplate.getMapper(MemberDao.class);
+		return memberDao.findpw(map);
+	}
 
-
+	@Override
+	public int updatePw(MemberDto memberDto) {
+		MemberDao memberDao = sqlSessionTemplate.getMapper(MemberDao.class);
+		return memberDao.updatePw(memberDto);
+	}
 
 }
