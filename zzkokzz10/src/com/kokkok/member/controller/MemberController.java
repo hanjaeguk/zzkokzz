@@ -19,6 +19,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -214,8 +215,8 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping(value="/member/myschedulewritelist.kok",method=RequestMethod.GET)
-	public ModelAndView myScheduleWriteList(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/member/mywritelist.kok",method=RequestMethod.GET)
+	public ModelAndView myWriteList(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request",request);
 		memberService.myWriteSchedule(mav);
@@ -223,7 +224,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/member/mywishschedule.kok",method=RequestMethod.GET)
-	public ModelAndView myschedulewish(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView myScheduleWish(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request",request);
 		memberService.myWishSchedule(mav);
@@ -231,16 +232,17 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/member/mywishreview.kok",method=RequestMethod.GET)
-	public  String myreviewwish() {
+	public  String myWishReview() {
 		return "member/myMenu/myWish/myreviewlist";
 	}
 	
-	@RequestMapping(value="/member/mywishreview.kok",method=RequestMethod.POST,headers= {"Content-type=application/json"})
-	public  @ResponseBody Map<String,Object> myreviewwishlist(String id) {
-		List<ReviewDto> reviewDtoList = memberService.getMyReviewList(id);
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("reviewList", reviewDtoList);
-		return map;
+	@RequestMapping(value="/member/getmywishreview.kok", produces = "application/text; charset=utf8", method=RequestMethod.GET)	
+	public @ResponseBody String getMyWishReview(@RequestParam(value="userid") String userid,
+											  	@RequestParam(value="pg") int pg,	
+											  	@RequestParam(value="listNumOfRows") int listNumOfRows) {	
+		String myReviewDtoList = memberService.getMyWishReview(pg, listNumOfRows, userid);
+		LogCheck.logger.info(LogCheck.logMsg +"myReviewDtoList"+ myReviewDtoList);
+		return myReviewDtoList; 
 	}
 	
 

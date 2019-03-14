@@ -160,36 +160,8 @@
 <!-- 오른쪽 목록 -->
 		<div class="col-lg-9">
 <!-- 목록들 -->
-        	<div id="scheduleList" class="row">
-        		
-					<%-- <div class="col-md-4 ftco-animate destination">
-			    		<a href="${root}/schedule/view.kok" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('${root}/resources/images/destination-1.jpg');">
-				    		<div class="icon d-flex justify-content-center align-items-center">
-		    					<span class="icon-search2"></span>
-		    				</div>
-			    		</a>
-			    		<div class="text p-3">
-			    			<div class="d-flex">
-					    		<h3><a href="#">여행 제목이 들어갑니다!!! </a></h3>
-			    			</div>
-			    			<p>#전라남도 #여수 #순천 #광양 #저기 #나혼자</p>
-			    			<br>
-			    			<p class="bottom-area d-flex">
-			    				<span class="days">18.08.18 - 18.09.18 (30일)</span>
-			    				<span class="ml-auto">후기</span>
-			    			</p>
-			    			<hr>
-			    			<p class="bottom-area d-flex">
-			    				<span><i class="icon-person"></i> 작성자id</span>
-			    				<span class="list-cnt">
-			    					<i class="icon-thumbs-o-up"></i> 18 &nbsp;
-			    					<i class="icon-eye"></i> 18
-			    				</span>
-			    			</p>
-			    		</div>
-					</div> --%>
-        		
-          	</div>
+        	<div id="scheduleList" class="row"></div>
+          	
 <!-- 목록들 END -->
 
 <!-- page -->

@@ -269,8 +269,8 @@ function initInformationButtonColor() {
 				<form action="" id="reviewListForm" name="reviewListForm" method="get">
 				<input type="hidden"  name="seq" id="seq" value=""/>
 					<div class="row" id="makeReviewList"></div>				
-			</form>
-		</div> 
+				</form>
+			</div> 
  	</div>
 </div>
 </section>

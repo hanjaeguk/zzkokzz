@@ -17,7 +17,8 @@ public interface MemberDao {
 	int updatePw(MemberDto memberDto);
 	int memberModify(Map<String, String> map);
 	int memberdelete(Map<String, String> map);
-	List<ReviewDto> getMyReviewList(String id);
+	int getMyWishReviewTotalCount(Map<String, String> map);
+	List<ReviewDto> getMyWishReview(Map<String, String> map);
 
 
 

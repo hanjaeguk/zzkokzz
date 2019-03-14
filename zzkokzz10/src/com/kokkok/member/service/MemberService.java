@@ -17,7 +17,7 @@ public interface MemberService {
 	int updatePw(MemberDto memberDto);
 	int memberModify(Map<String, String> map);
 	int memberdelete(Map<String, String> map);
-	List<ReviewDto> getMyReviewList(String id);
+	String getMyWishReview(int pg, int listNumOfRows, String id);
 
 
 	public void myInfo(ModelAndView mav);

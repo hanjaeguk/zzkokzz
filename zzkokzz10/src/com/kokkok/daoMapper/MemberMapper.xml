@@ -51,7 +51,14 @@
 		where userid=#{deleteid} and userpass=#{deletepass}
 	</delete>
 	
-	<select id="getMyReviewList" parameterType="String" resultType="com.kokkok.dto.ReviewDto">
+	<select id="getMyWishReviewTotalCount" parameterType="java.util.Map" resultType="int">
+      	select count(*) as rcount
+        from board
+        where bcode='3' or bcode = '4' or bcode = '5' 
+    </select>
+
+
+	<select id="getMyWishReview" parameterType="java.util.Map" resultType="com.kokkok.dto.ReviewDto">
 		select a.* from board a,wish b,board_list c
 		where a.seq=b.seq and a.bcode = c.bcode
 		and b.userid = #{userid}

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kokkok.comm.LogCheck;
 import com.kokkok.dto.ReviewDto;
 import com.kokkok.main.service.MainService;
 import com.kokkok.review.service.ReviewService;
@@ -33,7 +34,16 @@ public class ReviewController {
 	private MainService mainService;
 	
 	@RequestMapping(value="/review/list.kok", method=RequestMethod.GET)
-	public String reviewList () {
+	public String reviewList (HttpServletRequest request) {
+		String path = request.getHeader("referer");
+		String projectName = request.getContextPath(); 
+		
+
+		path = path.substring(path.lastIndexOf(projectName) + projectName.length()+1, path.length());
+		LogCheck.logger.info(LogCheck.logMsg + path);
+		if("member/mywishreview.kok".equals(path)) {
+			return "member/myMenu/myWish/myreviewlist";
+		}
 		return "review/list";
 	}
 	
@@ -71,9 +81,8 @@ public class ReviewController {
 	
 	@RequestMapping(value="/review/view.kok",method=RequestMethod.GET)
 	public ModelAndView reviewView(@RequestParam String seq) {
-		
-		ReviewDto reviewDto = reviewService.reviewView(seq);		
 		ModelAndView mav = new ModelAndView();			
+		ReviewDto reviewDto = reviewService.reviewView(seq);		
 		mav.addObject("article",reviewDto);
 		mav.setViewName("review/view");
 		return mav;
