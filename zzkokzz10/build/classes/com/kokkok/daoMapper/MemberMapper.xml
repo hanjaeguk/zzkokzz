@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kokkok.member.dao.MemberDao">
+
+	
+	<insert id="register" parameterType="com.kokkok.dto.MemberDto">
+		insert into member(userid,username,useremail,userpass,joindate,admincode)
+		values(#{userid}, #{username}, #{useremail}, #{userpass}, sysdate, 0)                                       
+    </insert>
+    
+      
+    <select id="idCheck" parameterType="String" resultType="int">
+        <![CDATA[select count(*)
+        from member
+        where userid = #{checkid}]]>
+    </select>
+    
+    
+    <select id="login" parameterType="java.util.Map" resultType="com.kokkok.dto.MemberDto">
+    	select * from member
+		where userid = #{loginid} and userpass = #{loginpass}
+    </select>
+    
+    <select id="reLogin" parameterType="java.util.Map" resultType="com.kokkok.dto.MemberDto">
+    	select * from member
+		where userid = #{mid} and userpass = #{mpass}
+    </select>
+    
+    <update id="updatePw" parameterType="com.kokkok.dto.MemberDto">
+		update member set userpass = #{userpass} 
+		where userid = #{userid} and useremail = #{useremail}
+	</update>
+
+	<select id="findPw" parameterType="java.util.Map" resultType="com.kokkok.dto.MemberDto">
+		select * from member 
+		where userid = #{findid} and useremail = #{findemail}
+	</select>
+	
+	<update id="memberModify" parameterType="com.kokkok.dto.MemberDto">
+		update member 
+		set username = #{mname},
+    		userpass = #{mpass},
+    		useremail = #{memail}
+		where userid = #{mid}
+	</update>
+	
+	<delete id="memberdelete" parameterType="java.util.Map">
+		delete from member
+		where userid=#{deleteid} and userpass=#{deletepass}
+	</delete>
+	
+	<select id="getMyReviewList" parameterType="String" resultType="com.kokkok.dto.ReviewDto">
+		select a.* from board a,wish b,board_list c
+		where a.seq=b.seq and a.bcode = c.bcode
+		and b.userid = #{userid}
+		and c.ccode = 2
+	</select>
+
+</mapper>
