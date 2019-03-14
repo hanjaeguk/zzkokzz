@@ -6,9 +6,22 @@
 <title>Insert title here</title>
 <%@ include file="/WEB-INF/views/include/link.jsp"%>
 <%@ include file="/WEB-INF/views/include/loader.jsp"%> 
-  	<script type="text/javascript">
+<script type="text/javascript">
 	var contextPath='<%=request.getContextPath()%>';
-	</script>
+</script>
+<style>
+#lastPage,#firstPage,#nextPageGroup,#prevPageGroup,.naviNum {
+	cursor: Pointer;
+}	
+.myreviewdiv{
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 200px;
+    }
+</style>
+
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/nav.jsp"%>
@@ -50,6 +63,7 @@ document.location.href = "${root}/index.jsp";
 <!-- 왼쪽 검색창 END -->
 
 <!-- 오른쪽 목록 -->
+
 		<div class="col-lg-9">
 <!-- 목록들 -->
 	 	<form action="" id="reviewListForm" name="reviewListForm" method="get">	
@@ -81,7 +95,6 @@ document.location.href = "${root}/index.jsp";
 
 <!-- 목록들 END -->
 <!-- page -->
-
           	<div class="row mt-5">
 		          <div class="col text-center">
 		            <div class="block-27">
@@ -97,7 +110,6 @@ document.location.href = "${root}/index.jsp";
 		            </div>
 		          </div>
           	</div>
-          	
 <!-- page END -->          	
 		</div> 
 <!-- 오른쪽 목록  END-->

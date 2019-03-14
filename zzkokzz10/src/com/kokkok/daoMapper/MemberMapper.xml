@@ -53,8 +53,9 @@
 	
 	<select id="getMyWishReviewTotalCount" parameterType="java.util.Map" resultType="int">
       	select count(*) as rcount
-        from board
-        where bcode='3' or bcode = '4' or bcode = '5' 
+        from board a, wish b
+        where a.seq = b.seq
+        and (bcode='3' or bcode = '4' or bcode = '5' )
     </select>
 
 

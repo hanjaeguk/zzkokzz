@@ -14,14 +14,14 @@ var userid = $("#getuserId").val();
 $(document).ready(function() {
 
 	// 처음은 1페이지
-	currPageNum = 2;
+	currPageNum = 1;
 	myReviewList();
 		
 	// Search Button Click Event
-	$("#getMyReviewList").click(function() {
-		currPageNum = 1;
-		myReviewList();
-	});
+//	$("#getMyReviewList").click(function() {
+//		currPageNum = 1;
+//		myReviewList();
+//	});
 	
 });
 
@@ -47,16 +47,25 @@ function myReviewList() {
 }
 
 function makeReviewList(json) {
+//	alert("makeReviewList(json) start!!");
 	var reviewListCnt = json.myReviewList.length;
 	var contentStr = "";
 	for (var i = 0; i < reviewListCnt; i++) {
 		var review = json.myReviewList[i];
+		var reviewName = "";
+		if(review.bcode == 3){
+			reviewName = "장소 리뷰";
+		} else if(review.bcode == 4){
+			reviewName = "숙박 리뷰";
+		} else if(review.bcode == 5){
+			reviewName = "맛집 리뷰";
+		}
 		contentStr += "<div class='col-md-4 ftco-animate  fadeInUp ftco-animated destination'>";		
-		contentStr += "<a href='" + contextPath + "/review/view.kok?seq=" + review.seq + "' class='img img-2 d-flex justify-content-center align-items-center'>";		
+//		contentStr += "<a href='" + contextPath + "/review/view.kok?seq=" + review.seq + "' class='img img-2 d-flex justify-content-center align-items-center'>";		
 //		contentStr += "style='background-image: url(" + contextPath + "/" + reviewList[i].savefolder + "/" + reviewList[i].savepicture + ");'>";		
-		contentStr += "<div class='icon d-flex justify-content-center align-items-center'>";		
-		contentStr += "<span class='icon-search2'></span>";		
-		contentStr += "</div>";		
+//		contentStr += "<div class='icon d-flex justify-content-center align-items-center'>";		
+//		contentStr += "<span class='icon-search2'></span>";		
+//		contentStr += "</div>";		
 		contentStr += "</a>";	
 		
 		contentStr += "<div class='text p-3'>";		
@@ -64,14 +73,17 @@ function makeReviewList(json) {
 		contentStr += "<h3><a href='" + contextPath + "/review/view.kok?seq=" + review.seq + "'>" + review.subject + "</a></h3>";		
 		contentStr += "</div>";
 		
-		contentStr += "<p>"+ review.content +"</p>";		
+		contentStr += "<div class='myreviewdiv' onclick=\"location.href =\'"+ contextPath +"/review/view.kok?seq="+ review.seq + "\'\" style='cursor:pointer;'   ";		
+		contentStr += "<p>"+ review.content +"</p>";			
+		contentStr += "</div>";
+
 		contentStr += "<br>";
-		contentStr += "<p class='days'><span>작성일</span></p>";
+		contentStr += "<p class='days' align='right'><span>작성일: "+review.logtime+"</span></p>";
 
 		contentStr += "<hr>";		
 		contentStr += "<p class='bottom-area d-flex'>";		
-		contentStr += "<span><i class='icon-person'></i>" + review.userid + "</span>";
-		contentStr += "<span class='ml-auto'>"+review.bcode;
+		contentStr += "<span><i class='icon-person'></i>아이디: " + review.userid + "</span>";
+		contentStr += "<span class='ml-auto'>"+reviewName;
 		contentStr += "</span>";
 		contentStr += "</p>";
 		contentStr += "</div>";		
@@ -81,11 +93,13 @@ function makeReviewList(json) {
 	// 일단 싹 지우고 리스트 추가
 	$("#myreviewList").children("div").remove();
 	$("#myreviewList").append(contentStr);
-	listTotalCount = response.totCount;
-    makeNavigator();
+	listTotalCount = json.totCount;
+	makeNavigator();
 }
 
+
 function makeNavigator() {
+//	alert("makeNav Start!");
 	// 전체 페이지 갯수
 	var totalPageCount = parseInt((listTotalCount - 1) / listNumOfRows + 1);
 	// 목록을 몇 페이지 단위로 보게 할 것인가

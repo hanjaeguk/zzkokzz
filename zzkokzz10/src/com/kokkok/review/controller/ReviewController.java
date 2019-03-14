@@ -34,16 +34,8 @@ public class ReviewController {
 	private MainService mainService;
 	
 	@RequestMapping(value="/review/list.kok", method=RequestMethod.GET)
-	public String reviewList (HttpServletRequest request) {
-		String path = request.getHeader("referer");
-		String projectName = request.getContextPath(); 
-		
+	public String reviewList () {
 
-		path = path.substring(path.lastIndexOf(projectName) + projectName.length()+1, path.length());
-		LogCheck.logger.info(LogCheck.logMsg + path);
-		if("member/mywishreview.kok".equals(path)) {
-			return "member/myMenu/myWish/myreviewlist";
-		}
 		return "review/list";
 	}
 	
@@ -111,11 +103,11 @@ public class ReviewController {
 		ModelAndView mav = new ModelAndView();	
 		
 		String path = "";
-		if(cnt != 0) {//삭제완료
+		if(cnt != 0) {//�궘�젣�셿猷�
 			path = "review/list"; 
 			List<ReviewDto> reviewDtoList = reviewService.reviewList(map);			
 			mav.addObject("reviewList",reviewDtoList);
-		}else {//삭제실패
+		}else {//�궘�젣�떎�뙣
 			String seq = (String)map.get("seq");
 			ReviewDto reviewDto = reviewService.reviewView(seq);			
 			mav.addObject("article",reviewDto);
