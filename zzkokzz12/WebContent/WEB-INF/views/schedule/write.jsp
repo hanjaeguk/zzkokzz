@@ -83,7 +83,6 @@ $(document).ready(function() {
 		    		</a>		    		
 			</div>
 		</div>
-		
         <div class="sidebar-wrap bg-light ftco-animate">
 			<h3 class="heading mb-4">일정 정보</h3>
         	<div class="fields">
