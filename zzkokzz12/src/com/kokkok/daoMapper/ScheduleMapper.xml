@@ -17,6 +17,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		 	select max(sseq) from schedule
    		 </select>
    		 
+   		 <select id="getNextSeq" resultType="int">
+   		 	select max(seq) from board;
+   		 </select>
+   		 
    		 <insert id="scheduleReviewWrite" parameterType="java.util.Map">
    		 	insert all
    		 	 into board (seq, bcode, userid, subject, content, logtime, updatetime, recommcount, wishcount, hit)

@@ -10,6 +10,7 @@ import com.kokkok.dto.ScheduleViewDto;
 public interface ScheduleDao {
 	public int scheduleWrite(Map<String, Object> map);
 	public int getNextSseq();
+
 	public int scheduleReviewWrite(Map<String, Object> map);
 	
 	public ScheduleViewDto scheduleView(String sseq);

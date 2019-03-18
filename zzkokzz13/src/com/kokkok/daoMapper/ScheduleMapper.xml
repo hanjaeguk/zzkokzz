@@ -137,6 +137,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		set tripday=#{tripday}, step=#{step}
 		where seq=#{seq}
 	</update>
+
 </mapper>
 
 

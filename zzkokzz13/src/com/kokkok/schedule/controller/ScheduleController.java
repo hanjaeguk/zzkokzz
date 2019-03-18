@@ -39,7 +39,7 @@ public class ScheduleController {
 	}
 
 	@RequestMapping(value = "/schedule/write.kok", method = RequestMethod.POST)
-	public String scheduleWrite(@RequestParam Map<String, Object> map, HttpSession session, RedirectAttributes redirect,
+	public ModelAndView scheduleWrite(@RequestParam Map<String, Object> map, HttpSession session,
 			ScheduleReviewDtoList list) {
 		// MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
 		// map.put("userid", memberDto.getUserid());
@@ -48,7 +48,7 @@ public class ScheduleController {
 		// +) file upload
 		int scheduleCnt = scheduleService.scheduleWrite(map);
 		int reviewCnt = 0;
- 
+
 		// review insert
 		for (int i = 0; i < list.getList().size(); i++) {
 			System.out.println(i);
@@ -70,8 +70,8 @@ public class ScheduleController {
 			reviewCnt = scheduleService.scheduleReviewWrite(reviewMap);
 		}
 
-		String path="";
-		//ModelAndView mav = new ModelAndView();
+//		String path="";
+		ModelAndView mav = new ModelAndView();
 		if (scheduleCnt != 0 && reviewCnt != 0) {
 			// 글번호 가져가기 코딩해야함
 			String sseq = scheduleService.selectSseq();
@@ -86,26 +86,29 @@ public class ScheduleController {
 				scheduleViewDto.setUpdatetime(scheduleViewDto.getUpdatetime().substring(0, 11).replaceAll("-", "/"));
 			}
 			System.out.println("과연!");
-			//mav.addObject("scheduleArticle", scheduleViewDto);
-			//mav.addObject("reviewArticle", scheduleReviewDtoList);
+			mav.addObject("scheduleArticle", scheduleViewDto);
+			mav.addObject("reviewArticle", scheduleReviewDtoList);
 
-			//mav.setViewName("schedule/view");// 성공
+			mav.setViewName("schedule/view");// 성공
+//			redirect.addFlashAttribute("sseq", sseq);
+//			redirect.addFlashAttribute("seq", seq);
+//			redirect.addAttribute("seq",seq);
 			
-			redirect.addAttribute("sseq",sseq);
-			//redirect.addAttribute("seq",scheduleViewDto.getSeq());
+//			path = "redirect:/schedule/view.kok";
+
 		} else {
 			System.out.println("일정 쓰기 실패");
-			//mav.setViewName("schedule/list");// 실패
-			path = "redirect:/schedule/list.kok";
+			mav.setViewName("schedule/list");// 실패
+//			path = "redirect:/schedule/list.kok";
 		}
-		//return mav;
-		return path;
+		return mav;
+//		return path;
 		/* 리뷰 등록하다 실패시 스케줄 등록 rollback 해야함 */
 	}
 
 	@RequestMapping(value = "/schedule/view.kok", method = RequestMethod.GET)
-	public ModelAndView scheduleView(@RequestParam String sseq, String seq) {
-		mainService.updateHit(seq);
+	public ModelAndView scheduleView(@RequestParam String sseq) {
+//		mainService.updateHit(seq);
 
 		ScheduleViewDto scheduleViewDto = scheduleService.scheduleView(sseq);
 		List<ScheduleReviewDto> scheduleReviewDtoList = scheduleService.scheduleReviewView(sseq);

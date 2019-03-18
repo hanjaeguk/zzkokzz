@@ -70,5 +70,11 @@ public class ScheduleServiceImpl implements ScheduleService {
 		
 		return reviewList;
 	}
+
+	@Override
+	public String selectSeq() {
+		int seq = sqlSessionTemplate.getMapper(ScheduleDao.class).getNextSeq();
+		return Integer.toString(seq);
+	}
 	
 }

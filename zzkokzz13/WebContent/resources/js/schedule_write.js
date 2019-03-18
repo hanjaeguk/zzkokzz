@@ -124,20 +124,20 @@ function getFormatDate(date){
 
 /*-------- 여행일수 변경 --------*/
 function addTag(num){
-	tripStart = new Date(tripStart);
+	var myTripStart = new Date(tripStart);
 	
 	var contents = 
 		"<div class='sl-oneDay' id='sl_oneDay_"+num+"'>" + 
 		"<div class='sl-day' id='sl_day_"+num+"'>" +
 		"<label class='seul1' onclick='dayTogg("+num+")'>"+num+"일차<span>"+
-		getFormatDate(tripStart)+
+		getFormatDate(myTripStart)+
 		"</span></label>" +
 		"<input type='button' id='' value='+일정 추가' class='btn btn-primary scheduleAdd' data-toggle='modal' data-target='#scheduleWriteModal' onclick='modalSetDay("+num+");'/>" +
 		"<hr>" +
 		"</div>" +
 		"<div class='seul1_Item"+num+"' id='itemBoxWrap_"+num+"'></div>" +
 		"</div>" ;
-		tripStart.setDate(tripStart.getDate()+1);
+		myTripStart.setDate(myTripStart.getDate()+1);
 	return contents;
 }
 

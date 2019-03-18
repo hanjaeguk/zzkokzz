@@ -110,5 +110,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 		ScheduleDao scheduleDao = sqlSessionTemplate.getMapper(ScheduleDao.class);
 		return scheduleDao.scheduleReviewUpdate(map);
 	}
+	
 
 }

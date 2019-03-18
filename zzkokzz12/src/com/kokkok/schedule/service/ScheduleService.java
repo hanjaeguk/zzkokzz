@@ -15,6 +15,7 @@ public interface ScheduleService {
 	public int scheduleReviewWrite(Map<String, Object> map);
 	
 	public String selectSseq();
+	public String selectSeq();
 	public ScheduleViewDto scheduleView(String sseq);
 	public List<ScheduleReviewDto> scheduleReviewView(String sseq);
 }
