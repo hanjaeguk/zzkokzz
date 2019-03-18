@@ -68,7 +68,7 @@ document.location.href = "${root}/index.jsp";
 <!-- 목록들 -->
 	 	<form action="" id="reviewListForm" name="reviewListForm" method="get">	
 	        <input type="hidden" id="getuserId" value="${userInfo.userid}">
-	       	<div id="myreviewList"class="row"></div>
+	       	<div id="myreviewList" class="row"></div>
 		</form>
           		<%-- <div class="col-md-4 ftco-animate destination">
 	    		<a href="${root}/schedule/view.jsp" class="img img-2 d-flex justify-content-center align-items-center" 
@@ -99,13 +99,7 @@ document.location.href = "${root}/index.jsp";
 		          <div class="col text-center">
 		            <div class="block-27">
 		              <ul id="navigator">
-		                <li><a href="#">&lt;</a></li>
-		                <li class="active"><span>1</span></li>
-		                <li><a href="#">2</a></li>
-		                <li><a href="#">3</a></li>
-		                <li><a href="#">4</a></li>
-		                <li><a href="#">5</a></li>
-		                <li><a href="#">&gt;</a></li>
+
 		              </ul>
 		            </div>
 		          </div>

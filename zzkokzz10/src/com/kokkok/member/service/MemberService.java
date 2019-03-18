@@ -18,6 +18,7 @@ public interface MemberService {
 	int memberModify(Map<String, String> map);
 	int memberdelete(Map<String, String> map);
 	String getMyWishReview(int pg, int listNumOfRows, String id);
+	String getMyWishSchedule(int pg, int listNumOfRows, String id);
 
 
 	public void myInfo(ModelAndView mav);

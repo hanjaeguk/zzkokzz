@@ -135,15 +135,15 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		String path = request.getHeader("referer");
 		String projectName = request.getContextPath(); 
-		LogCheck.logger.info(LogCheck.logMsg +"�씠�쟾 �럹�씠吏�寃쎈줈:"+ path);
-		LogCheck.logger.info(LogCheck.logMsg +"�봽濡쒖젥�듃 �씠由�:"+ projectName);
-		LogCheck.logger.info(LogCheck.logMsg +"�봽濡쒖젥�듃 湲몄씠:"+projectName.length());
+		LogCheck.logger.info(LogCheck.logMsg +"이전 페이지경로:"+ path);
+		LogCheck.logger.info(LogCheck.logMsg +"프로젝트 이름:"+ projectName);
+		LogCheck.logger.info(LogCheck.logMsg +"프로젝트 길이:"+projectName.length());
 		MemberDto memberDto = memberService.login(map);
 		if(memberDto != null) {
 			LogCheck.logger.info(LogCheck.logMsg + memberDto.toString());
 			session.setAttribute("userInfo", memberDto);
 			path = path.substring(path.lastIndexOf(projectName) + projectName.length()+1, path.length());
-			LogCheck.logger.info(LogCheck.logMsg +"�씠�룞�븷 寃쎈줈:"+ path);
+			LogCheck.logger.info(LogCheck.logMsg +"이동할 경로:"+ path);
 			
 			if("index.jsp".equals(path) || "member/register.kok".equals(path) || "member/registerok.kok".equals(path)) {
 				mav.setViewName("redirect:index.jsp");
@@ -170,7 +170,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value="/member/findpass.kok",method=RequestMethod.POST)
-	public ModelAndView findPass(@RequestParam Map<String, String> map) {
+	public ModelAndView findpass(@RequestParam Map<String, String> map) {
 		ModelAndView mav = new ModelAndView();
 		MemberDto memberDto = memberService.findPw(map);
 		if(memberDto != null) {
@@ -182,18 +182,18 @@ public class MemberController {
 			memberService.updatePw(memberDto);
 		    try {
 		    	String htmlContent = "";
-		    	htmlContent += memberDto.getUsername()+"�떂 諛섍컩�뒿�땲�떎.<br>";
-		    	htmlContent += "�엫�떆鍮꾨�踰덊샇媛� 諛쒓툒�쇅�뿀�뒿�땲�떎.<br>";
-		    	htmlContent += "<font style=\"font-size: 20px; \">�엫�떆鍮꾨�踰덊샇:</font>";
+		    	htmlContent += memberDto.getUsername()+"님 반갑습니다.<br>";
+		    	htmlContent += "임시비밀번호가 발급외었습니다.<br>";
+		    	htmlContent += "<font style=\"font-size: 20px; \">임시비밀번호:</font>";
 		    	htmlContent += "<font color=\"red\" style=\"font-size: 25px; font-weight: bold;\">"+memberDto.getUserpass().toString()+"</font><br>";
-		    	htmlContent += "濡쒓렇�씤�썑 鍮꾨�踰덊샇瑜� 蹂�寃쏀빐二쇱꽭�슂.<br>";
-		    	htmlContent += "媛먯궗�빀�땲�떎.";
+		    	htmlContent += "로그인후 비밀번호를 변경해주세요.<br>";
+		    	htmlContent += "감사합니다.";
 			    MimeMessage message = mailSender.createMimeMessage();
 
-			    message.setFrom(new InternetAddress("kokkokbangbang@gmail.com","Kokkok"));  // 蹂대궡�뒗�궗�엺 �씠硫붿씪
-			    message.addRecipient(RecipientType.TO, new InternetAddress(memberDto.getUseremail())); // 諛쏅뒗�궗�엺 �씠硫붿씪
-			    message.setSubject("諛⑸갑肄뺤퐬 �엫�떆鍮꾨�踰덊샇�엯�땲�떎."); // �젣紐�
-			    message.setText(htmlContent, "UTF-8", "html");  // �궡�슜
+			    message.setFrom(new InternetAddress("kokkokbangbang@gmail.com","Kokkok"));  // 보내는사람 이메일
+			    message.addRecipient(RecipientType.TO, new InternetAddress(memberDto.getUseremail())); // 받는사람 이메일
+			    message.setSubject("방방콕콕 임시비밀번호입니다."); // 제목
+			    message.setText(htmlContent, "UTF-8", "html");  // 내용
 			     
 			    mailSender.send(message);
 				mav.addObject("memberDto",memberDto);
@@ -223,26 +223,35 @@ public class MemberController {
 		return mav;
 	}
 	
+	
 	@RequestMapping(value="/member/mywishschedule.kok",method=RequestMethod.GET)
-	public ModelAndView myScheduleWish(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("request",request);
-		memberService.myWishSchedule(mav);
-		return mav;
+	public String myScheduleWish() {
+		return "member/myMenu/myWish/myschedulelist";
 	}
+	
+	@RequestMapping(value="/member/getwishschedule.kok",produces = "application/text; charset=utf8", method=RequestMethod.GET)
+	public @ResponseBody String getScheduleWish(@RequestParam(value="userid") String userid,
+		  										@RequestParam(value="pg") int pg,	
+		  										@RequestParam(value="listNumOfRows") int listNumOfRows) {
+		String myScheduleDtoList = memberService.getMyWishSchedule(pg, listNumOfRows, userid);
+		System.out.println(myScheduleDtoList);
+		return myScheduleDtoList;
+	}
+	
+	
 	
 	@RequestMapping(value="/member/mywishreview.kok",method=RequestMethod.GET)
 	public  String myWishReview() {
 		return "member/myMenu/myWish/myreviewlist";
 	}
 	
+	
+	
 	@RequestMapping(value="/member/getmywishreview.kok", produces = "application/text; charset=utf8", method=RequestMethod.GET)	
 	public @ResponseBody String getMyWishReview(@RequestParam(value="userid") String userid,
 											  	@RequestParam(value="pg") int pg,	
 											  	@RequestParam(value="listNumOfRows") int listNumOfRows) {	
 		String myReviewDtoList = memberService.getMyWishReview(pg, listNumOfRows, userid);
-		LogCheck.logger.info(LogCheck.logMsg +"myReviewDtoList"+ myReviewDtoList);
-		LogCheck.logger.info(LogCheck.logMsg +"myReviewDtoList"+ listNumOfRows);
 		return myReviewDtoList; 
 	}
 	

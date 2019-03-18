@@ -15,19 +15,18 @@ $(document).ready(function() {
 
 	// 처음은 1페이지
 	currPageNum = 1;
-	myReviewList();
+	myScheduleList();
 		
 	// Search Button Click Event
-//	$("#getMyReviewList").click(function() {
+//	$("#getmyScheduleList").click(function() {
 //		currPageNum = 1;
-//		myReviewList();
+//		myScheduleList();
 //	});
 	
 });
 
-function myReviewList() {
-	
-	var urlStr = contextPath + '/member/getmywishreview.kok';
+function myScheduleList() {	
+	var urlStr = contextPath + '/member/getwishschedule.kok';
 
 	var param = {"pg": currPageNum, "listNumOfRows": listNumOfRows, "userid": userid}
 			
@@ -38,7 +37,7 @@ function myReviewList() {
 		  dataType: 'json',
 		  data: param,
 		  success: function(response){			  
-			  makeReviewList(response);		  
+			  makeScheduleHtml(response);		  
 		  },
 		  error : function() {
 				alert("error : function()");
@@ -46,60 +45,56 @@ function myReviewList() {
 	});
 }
 
-function makeReviewList(json) {
+function makeScheduleHtml(json) {
 //	alert("makeReviewList(json) start!!");
-	var reviewListCnt = json.myReviewList.length;
+	var scheduleListCnt = json.myScheduleList.length;
 	var contentStr = "";
-	for (var i = 0; i < reviewListCnt; i++) {
-		var review = json.myReviewList[i];
-		var reviewName = "";
-		var locationImg = "";
-		if(review.bcode == 3){
-			reviewName = "장소 리뷰";
-			locationImg = "meeting-point";
-		} else if(review.bcode == 4){
-			reviewName = "숙박 리뷰";
-			locationImg = "hotel"
-		} else if(review.bcode == 5){
-			reviewName = "맛집 리뷰";
-			locationImg = "fork"
-		}
-		contentStr += "<div class='col-md-4 ftco-animate  fadeInUp ftco-animated destination'>";
-//		contentStr += "<a href='" + contextPath + "/review/view.kok?seq=" + review.seq + "' class='img img-2 d-flex justify-content-center align-items-center'>";		
-//		contentStr += "style='background-image: url(" + contextPath + "/" + reviewList[i].savefolder + "/" + reviewList[i].savepicture + ");'>";		
-//		contentStr += "<div class='icon d-flex justify-content-center align-items-center'>";		
-//		contentStr += "<span class='icon-search2'></span>";		
-//		contentStr += "</div>";		
-		contentStr += "</a>";	
-		
+	var btypeNm = ["일정", "후기"];
+
+	for (var i = 0; i < scheduleListCnt; i++) {
+		var schedule = json.myScheduleList[i];
+		contentStr += "<div class='col-md-4 ftco-animate  fadeInUp ftco-animated destination'>";		
+		contentStr += "<a href='" + contextPath + "/schedule/view.kok?sseq=" + schedule.sseq + "' class='img img-2 d-flex justify-content-center align-items-center' ";		
+		contentStr += "style='background-image: url(" + contextPath + "/" + schedule.savefolder + "/" + schedule.savepicture + ");'>";		
+		contentStr += "<div class='icon d-flex justify-content-center align-items-center'>";		
+		contentStr += "<span class='icon-search2'></span>";		
+		contentStr += "</div>";		
+		contentStr += "</a>";		
 		contentStr += "<div class='text p-3'>";		
 		contentStr += "<div class='d-flex'>";		
-		contentStr += "<h3>"	
-		contentStr += "<a href='" + contextPath + "/review/view.kok?seq=" + review.seq + "'>";
-		contentStr += "<i class='flaticon-"+locationImg+"'/> "+ review.subject;
-		contentStr += "</a></h3>";
+		contentStr += "<h3><a href='" + contextPath + "/schedule/view.kok?sseq=" + schedule.sseq + "'>" + schedule.subject + "</a></h3>";		
 		contentStr += "</div>";
-		contentStr += "<hr>";
-		contentStr += "<div class='myreviewdiv' onclick=\"location.href =\'"+ contextPath +"/review/view.kok?seq="+ review.seq + "\'\" style='cursor:pointer;'   ";		
-		contentStr += "<p>"+ review.content +"</p>";			
-		contentStr += "</div>";
-
-		contentStr += "<br>";
-		contentStr += "<p class='days' align='right'><i class='icon-pencil'></i><span> 작성일: "+review.logtime+"</span></p>";
-
+		contentStr += "<p>";
+//		if (schedule.simpleaddr != null && schedule.simpleaddr != "") {
+//			var saddr = schedule.simpleaddr;
+//			var addr_array = saddr.split(" ");
+////			alert(saddr + " " + addr_array.length);			
+//			
+//			for(var j = 0; j < addr_array.length; j++){
+//				contentStr += "#" + addr_array[j] + " ";
+//			}			
+//		}
+		contentStr += "<br>#" + schedule.persons + "&nbsp;";
+		contentStr += "#" + schedule.thema;
+		contentStr += "</p>";
+		contentStr += "<p class='bottom-area d-flex'>";		
+		contentStr += "<span class='days'>" + schedule.startdate + " - " + schedule.enddate + " (" + schedule.period + "일)</span>";
+		contentStr += "<span class='ml-auto'>" + btypeNm[schedule.bcode - 1] + "</span>";
+		contentStr += "</p>";
 		contentStr += "<hr>";		
 		contentStr += "<p class='bottom-area d-flex'>";		
-		contentStr += "<span><i class='icon-person'></i> 아이디: " + review.userid + "</span>";
-		contentStr += "<span class='ml-auto'>"+reviewName;
+		contentStr += "<span><i class='icon-person'></i>" + schedule.userid + "</span>";
+		contentStr += "<span class='list-cnt'>";
+		contentStr += "<i class='icon-thumbs-o-up'></i> " + schedule.recommcount + " &nbsp;";
+		contentStr += "<i class='icon-eye'></i> " + schedule.wishcount ;
 		contentStr += "</span>";
 		contentStr += "</p>";
 		contentStr += "</div>";		
-		contentStr += "</div>";		
+		contentStr += "</div>";	
 	}
-	
 	// 일단 싹 지우고 리스트 추가
-	$("#myreviewList").children("div").remove();
-	$("#myreviewList").append(contentStr);
+	$("#myscheduleList").children("div").remove();
+	$("#myscheduleList").append(contentStr);
 	listTotalCount = json.totCount;
 	makeNavigator();
 }
@@ -182,7 +177,7 @@ $(document).on("click", "#lastPage", function() {
 	// 현재 페이지가 마지막 페이지가 아닌 경우에만 마지막 페이지로
 	if (currPageNum != totalPageCount) {
 		currPageNum = totalPageCount;		
-		myReviewList();
+		myScheduleList();
 		makeNavigator();
 	}	
 });
@@ -191,7 +186,7 @@ $(document).on("click", "#firstPage", function() {
 	// 현재 페이지가 1이 아닌 경우에만 첫 페이지로
 	if (currPageNum != 1) {
 		currPageNum = 1;
-		myReviewList();
+		myScheduleList();
 		makeNavigator();
 	}	
 });
@@ -211,7 +206,7 @@ $(document).on("click", "#nextPageGroup", function() {
 	// 다음 페이지 그룹의 시작 페이지는 전체 페이지 수보다 작거나 같아야 함
 	if (nextStartPage <= totalPageCount) {
 		currPageNum = nextStartPage;
-		myReviewList();
+		myScheduleList();
 		makeNavigator();
 	}	
 });
@@ -227,13 +222,13 @@ $(document).on("click", "#prevPageGroup", function() {
 	// 다음 페이지 그룹의 마지막 페이지는 0보다 커야 함
 	if (preLastPage > 0) {
 		currPageNum = preLastPage;
-		myReviewList();
+		myScheduleList();
 		makeNavigator();
 	}	
 });
 
 $(document).on("click", ".naviNum", function() {	
 	currPageNum = $(this).text();
-	myReviewList();
+	myScheduleList();
 	makeNavigator();
 });
